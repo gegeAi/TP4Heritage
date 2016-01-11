@@ -1,0 +1,9 @@
+#ifndef COMPLEX_FORM_H
+#define COMPLEX_FORM_H
+
+class ComplexForm : public Form
+{
+
+}
+
+#endif // COMPLEX_FORM
