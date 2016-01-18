@@ -28,8 +28,15 @@ virtual void Rectangle::Move(const Offset & delta)
 	bottomRight.y += delta.y;
 }
 
-Rectangle::Rectangle(const string & name, const Point & begin, const Point & end) : Form(name), 
-this->upLeft(upLeft), this->end(end)
+string Segment::toString() const
+{
+	ostringstream stream;
+	stream << "RECTANGLE " << name << " (" << upLeft.x << ";" << upLeft.y << ") (" << bottomRight.x << ";" << bottomRight.y << ")";
+	return stream.str();
+}
+
+Rectangle::Rectangle(const string & name, const Point & upLeft, const Point & bottomRight) : Form(name), 
+this->upLeft(upLeft), this->bottomRight(bottomRight)
 {
 #ifdef MAP
 	cout << "Call to <Rectangle> constructor" << endl;

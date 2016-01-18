@@ -4,15 +4,18 @@
 class Rectangle : public SimpleForm
 {
 	public :
-s
-		Rectangle(const Point & begin, const Point & end);
-		Rectangle(int xBegin, int yBegin, int xEnd, int yEnd);
+		
+		
+		virtual bool Hit(const Point & testPoint) const;
+		virtual void Move(const Offset & delta);
+		
+		Rectangle(const Point & upLeft, const Point & bottomRight);
 		virtual ~Rectangle();
 
 	private :
 
-		Point leftUp;
-		Point rightBottom;
+		Point upLeft;
+		Point bottomRight;
 
 };
 
