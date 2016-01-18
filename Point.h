@@ -5,7 +5,11 @@ typedef struct Point Point;
 typedef struct Point Offset;
 struct Point
 {
-	Point(int x, int y) {this->x = x; this->y = y;}
+	Point operator+(const Point & p2) const;
+	void operator+=(const Point & p2);
+
+	Point(int x, int y);
+	virtual ~Point();
 	
 	int x;
 	int y;
