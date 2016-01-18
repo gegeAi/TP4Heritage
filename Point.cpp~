@@ -11,7 +11,7 @@ void Point::operator+=(const Point & p2)
 	y += p2.y;
 }
 
-void Point::operator-=(const Point & p2)
+void operator-=(const Point & p2)
 {
 	x -= p2.x;
 	y -= p2.y;

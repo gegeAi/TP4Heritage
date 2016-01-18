@@ -34,6 +34,9 @@ class Project : public Serializable
 
 		map<string, shared_ptr<Form> > actualFigure;
 		map<string, shared_ptr<Form> > ** historic;
+
+		virtual string ToSerializableString() const;
+		virtual void LoadOperation(const ifstream & file);
 		
 }
 

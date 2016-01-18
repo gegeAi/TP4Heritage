@@ -50,9 +50,9 @@ int main()
 	if(tab.size() > 2)
 	{
 		cout << *tab[2] << endl;
-		cout << "t1" << endl;
+
 		tab[2]->Move(Offset(0, 0));
-		cout << "t2" << endl;
+
 		if(tab[2]->Hit(Point(25, 25)))
 		{
 			cout << "HIT !" << endl;

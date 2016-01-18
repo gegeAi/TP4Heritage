@@ -2,7 +2,6 @@
 #define SERIALIZABLE_H
 
 #include <string>
-#include <fstream>
 
 class Serializable
 {
@@ -10,12 +9,19 @@ class Serializable
 		
 		void Save(const string & fileName) const;
 
-		void Load(const string & fileName);
+		static Form * Load(const string & fileName);
 
-	private :
+		virtual string ToSerializableString() = 0 const;
 
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
+		virtual void LoadOperation(const string & line)= 0;
+
+		Serializable();
+		virtual ~Serializable();
+
+	protected :
+
+		static Form * createFromStr(const string & type);
+
 };
 
 #endif // SERIALIZABLE_H

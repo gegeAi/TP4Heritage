@@ -1,18 +1,29 @@
 #ifndef FORM_H
 #define FORM_H
 
-class Form : public Serializable
+#include <iostream>
+
+#include "Point.h"
+
+using namespace std;
+
+class Form
 {
 	public :
 
-		virtual bool Hit() const;
-		virtual void Move();
+		virtual bool Hit(const Point & testPoint) const = 0 ;
+		virtual void Move(const Offset & delta) = 0;
+		
+		virtual string toString() const = 0; 
 
-		Form();
+		Form(const string & name);
 		virtual ~Form();
 
-		ComplexForm operator+(const Form & second) const;
-		Form operator*(const Form & second) const;
+	protected :
+
+		string name;
 };
+
+ostream & operator<<(ostream & out, const Form & obj);
 
 #endif // FORM_H

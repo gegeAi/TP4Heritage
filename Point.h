@@ -11,6 +11,7 @@ struct Point
 	void operator-=(const Point & p2);
 
 	Point(int x, int y);
+	Point();
 	virtual ~Point();
 	
 	int x;

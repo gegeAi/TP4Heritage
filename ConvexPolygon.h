@@ -1,17 +1,34 @@
 #ifndef CONVEX_POLYGON_H
 #define CONVEX_POLYGON_H
 
-class ConvexPolygon : public SimpleForm
+#include "Form.h"
+
+using namespace std;
+
+class ConvexPolygon : public Form
 {
 	public :
+		
+		virtual bool Hit(const Point & testPoint) const;
+		virtual void Move(const Offset & delta);	
 
-		ConvexPolygon(const Point * pointList);
-		ConvexPolygon(const int * xList, const int * yList);
+		virtual string toString() const; 	
+		
+		ConvexPolygon(const string & argName, const Point * argPointList, int argSize);
+		ConvexPolygon(const ConvexPolygon & second); 
 		virtual ~ConvexPolygon();
 
-	private :
+	protected :
 
 		Point * pointList;
+		int size;
+
+		int insidePointX;
+		int insidePointY;
+		
+		bool testForLine(const Point & p1,const Point & p2, const Point & testPoint) const; 
+		bool isConvex() const;
+		
 
 };
 

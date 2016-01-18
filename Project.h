@@ -8,6 +8,9 @@
 class Project : public Serializable
 {
 	public :
+
+		virtual string ToSerializableString() const;
+		virtual void loadOperation(const string & line);
 		
 		void AddSegment(const string & name, const Point & begin, const Point & end);
 		void AddRectangle(const string & name, const Point & leftUp, const Point & rightBottom);
@@ -35,8 +38,7 @@ class Project : public Serializable
 		map<string, shared_ptr<Form> > actualFigure;
 		map<string, shared_ptr<Form> > ** historic;
 
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
+
 		
 }
 

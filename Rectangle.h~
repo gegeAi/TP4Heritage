@@ -1,20 +1,28 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "Point.h"
+#include "Form.h"
+
+using namespace std;
 
 class Rectangle : public Form
 {
 	public :
+		
+		
+		virtual bool Hit(const Point & testPoint) const;
+		virtual void Move(const Offset & delta);
 
-		Rectanle(const Point & begin, const Point & end);
-		Rectangle(int xBegin, int yBegin, int xEnd, int yEnd);
+		virtual string toString() const;
+		
+		Rectangle(const Point & upLeft, const Point & bottomRight);
 		virtual ~Rectangle();
 
 	private :
 
-		Point leftUp;
-		Point rightBottom;
+		Point upLeft;
+		Point bottomRight;
+
 };
 
 #endif // RECTANGLE_H
