@@ -1,6 +1,9 @@
 #include "Segment.h"
+#include <sstream>
 
-virtual bool Segment::Hit(const Point & testPoint) const
+using namespace std;
+
+bool Segment::Hit(const Point & testPoint) const
 {
 	double coef = (end.y-begin.y) / (end.x - begin.x);
 	double constant = begin.y - coef*begin.x;
@@ -8,7 +11,7 @@ virtual bool Segment::Hit(const Point & testPoint) const
 	return (coef*testPoint.x + constant) == testPoint.y;
 }
 
-virtual void Segment::Move(const Offset & delta)
+void Segment::Move(const Offset & delta)
 {
 	begin.x += delta.x;
 	end.x += delta.x;
@@ -16,8 +19,15 @@ virtual void Segment::Move(const Offset & delta)
 	end.y += delta.y;
 }
 
-Segment::Segment(const string & name, const Point & begin, const Point & end) : Form(name), 
-this->begin(begin), this->end(end)
+string Segment::toString() const
+{
+	ostringstream stream;
+	stream << "SEGMENT " << name << " (" << begin.x << ";" << begin.y << ") (" << end.x << ";" << end.y << ")";
+	return stream.str();
+}
+
+Segment::Segment(const string & name, const Point & argBegin, const Point & argEnd) : Form(name), 
+begin(argBegin), end(argEnd)
 {
 #ifdef MAP
 	cout << "Call to <Segment> constructor" << endl;
@@ -26,7 +36,7 @@ this->begin(begin), this->end(end)
 
 // todo check si il faut mettre : ~Form()
 
-virtual Segment::~Segment()
+Segment::~Segment()
 {
 #ifdef MAP
 	cout << "Call to <Segment> constructor" << endl;

@@ -1,15 +1,22 @@
 #include "Form.h"
 
-Form::Form(const string & name) : this->name(name)
+using namespace std;
+
+Form::Form(const string & argName) : name(argName)
 {
 #ifdef MAP
 	cout << "Call to <Form> constructor" << endl;
 #endif
 }
 
-virtual Form::~Form() : ~Serializable()
+Form::~Form()
 {
 #ifdef MAP
 	cout << "Call to <Form> constructor" << endl;
 #endif
+}
+
+ostream & operator<<(ostream & out, const Form & obj)
+{
+	return out << obj.toString();
 }

@@ -3,6 +3,8 @@
 
 #include "Form.h"
 
+using namespace std;
+
 class Segment : public Form
 {
 	public :
@@ -10,7 +12,9 @@ class Segment : public Form
 		virtual bool Hit(const Point & testPoint) const;
 		virtual void Move(const Offset & delta);
 
-		Segment(const string & name, const Point & begin, const Point & end);
+		virtual string toString() const;
+
+		Segment(const string & name, const Point & argBegin, const Point & argEnd);
 		virtual ~Segment();
 
 	protected :
