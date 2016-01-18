@@ -1,13 +1,11 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "Point.h"
-
-class Rectangle : public Form
+class Rectangle : public SimpleForm
 {
 	public :
-
-		Rectanle(const Point & begin, const Point & end);
+s
+		Rectangle(const Point & begin, const Point & end);
 		Rectangle(int xBegin, int yBegin, int xEnd, int yEnd);
 		virtual ~Rectangle();
 
@@ -16,8 +14,6 @@ class Rectangle : public Form
 		Point leftUp;
 		Point rightBottom;
 
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
 };
 
 #endif // RECTANGLE_H

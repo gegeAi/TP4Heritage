@@ -1,23 +1,21 @@
 #ifndef FORM_H
 #define FORM_H
 
-class Form : public Serializable
+#include "Point.h
+
+class Form
 {
 	public :
 
-		virtual bool Hit() const;
-		virtual void Move();
+		virtual bool Hit(const Point & testPoint) = 0 const;
+		virtual void Move(const Offset & delta) = 0;
 
-		Form();
+		Form(const string & name);
 		virtual ~Form();
 
-		ComplexForm operator+(const Form & second) const;
-		Form operator*(const Form & second) const;
+	protected :
 
-	private :
-
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
+		string name;
 };
 
 #endif // FORM_H

@@ -1,7 +1,7 @@
 #ifndef CONVEX_POLYGON_H
 #define CONVEX_POLYGON_H
 
-class ConvexPolygon : public Form
+class ConvexPolygon : public SimpleForm
 {
 	public :
 
@@ -13,8 +13,6 @@ class ConvexPolygon : public Form
 
 		Point * pointList;
 
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
 };
 
 #endif // CONVEX_POLYGON_H
