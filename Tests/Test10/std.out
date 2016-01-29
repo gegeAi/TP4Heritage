@@ -1,0 +1,13 @@
+OK
+#New object: rec
+OK
+#New object: seg
+OK
+#New object: poly
+OK
+#New object: union
+OK
+#New object: reunion
+R rec [1;2] [3;4]
+S seg [1;2] [3;4]
+PC poly [1;2] [3;4]

@@ -1,0 +1,4 @@
+R rec 1 2 3 4
+DELETE rec seg
+LIST
+EXIT

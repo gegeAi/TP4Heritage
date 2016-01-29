@@ -1,0 +1,4 @@
+R rec 1 2 3 4
+UNDO
+LIST
+EXIT

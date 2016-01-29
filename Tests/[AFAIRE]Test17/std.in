@@ -1,0 +1,8 @@
+R rec 1 2 3 4
+S seg 1 2 3 4
+PC poly 1 2 3 4
+MOVE rec 1 1
+MOVE seg 1 1
+MOVE poly 1 1
+LIST
+EXIT

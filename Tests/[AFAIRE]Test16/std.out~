@@ -1,0 +1,10 @@
+OK
+#New object: rec
+OK
+#New object: seg
+OK
+#New object: poly
+OK
+R rec [2;3] [4;5]
+S seg [2;3] [4;5]
+PC poly [2;3] [4;5]

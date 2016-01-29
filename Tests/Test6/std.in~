@@ -1,0 +1,10 @@
+S segment 0 1 2 3
+R rectangle 5 6 8 9
+PC poly 2 3 5 6 7 8 9 6
+OR reunion segment rectangle
+OI inter segment rectangle
+HIT segment 0 1
+HIT rectangle 5 6
+HIT PC 2 3
+HIT reunion 0 1
+HIT inter 0 1

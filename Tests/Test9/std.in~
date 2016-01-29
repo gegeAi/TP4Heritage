@@ -1,0 +1,6 @@
+R rec 1 2 3 4
+S seg 1 2 3 4
+PC rec 1 2 3 4
+DELETE rec seg poly
+LIST
+EXIT
