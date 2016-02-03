@@ -1,47 +1,48 @@
 #include "ComplexForm.h"
 
-virtual string ToSerializableString() const
-{
-	string serialStr = "<";
-
-	for(int i(0); i<group.size(); i++)
-	{
-		serialStr += group[i].toSerializableString();
-		serialStr += "|";
-	}
-	serialStr += ">";
-	return serialStr;
-}
-
-virtual void LoadOperation(const string & line)
-{
-	
-}
-
-virtual void Move(const Offset & delta)
+void ComplexForm::Move(const Offset & delta)
 {
 	for(int i(0); i<group.size(); i++)
 	{
-		group[i].move(delta);
+		group[i]->Move(delta);
 	}
 }
 
-ComplexForm(const string & name) : Form(name)
+string ComplexForm::toString() const
+{
+	string display(name + " : ");
+	for(int i(0); i<group.size()-1; i++)
+	{
+		display += group[i]->name;
+		display += " | ";
+	}
+
+	display += group[group.size()-1]->name;
+
+	return display;
+}
+
+ComplexForm::ComplexForm(const string & name) : Form(name)
 {
 #ifdef MAP
 	cout << "Call to <ComplexForm> constructor" << endl;
 #endif
 }
 
-virtual ~ComplexForm()
+ComplexForm::~ComplexForm()
 {
 #ifdef MAP
 	cout << "Call to <ComplexForm> destructor" << endl;
 #endif
+
+	for(int i(0); i<group.size(); i++)
+	{
+		delete group[i];
+	}
 }
 
 
-void operator+=(const Form & anotherForm)
+void ComplexForm::operator+=(Form * anotherForm)
 {
 	group.push_back(anotherForm);
 }

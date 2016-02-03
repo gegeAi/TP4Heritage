@@ -2,20 +2,21 @@
 #define UNION_H
 
 #include <vector>
+#include "ComplexForm.h"
 
-class Union : public Form
+using namespace std;
+
+class Union : public ComplexForm
 {
 	public :
+		
+		virtual bool Hit(const Point & testPoint) const;
 
-		Union();
+		virtual string toString() const;		
+
+		Union(const string & argName);
 		virtual ~Union();
 
-	private :
-
-		vector<Form> objects;
-
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
 };
 
 #endif // UNION_H

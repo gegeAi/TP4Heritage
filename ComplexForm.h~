@@ -3,23 +3,27 @@
 
 #include <vector>
 
+#include "Form.h"
+
+using namespace std;
+
 class ComplexForm : public Form
 {
 	public :
-
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const string & line);
-
+		
+		virtual bool Hit(const Point & testPoint) const = 0 ;
 		virtual void Move(const Offset & delta);
+
+		virtual string toString() const;
 
 		ComplexForm(const string & name);
 		virtual ~ComplexForm();
 
-		void operator+=(const Form & anotherForm);
+		void operator+=(Form & anotherForm);
 
-	private :
+	protected :
 
-		vector<Form> group;
+		vector<Form *> group;
 };
 
 #endif // COMPLEX_FORM_H

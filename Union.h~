@@ -1,20 +1,20 @@
-#ifndef CONVEX_POLYGON_H
-#define CONVEX_POLYGON_H
+#ifndef UNION_H
+#define UNION_H
 
-class ConvexPolygon : public Form
+#include <vector>
+#include "ComplexForm.h"
+
+using namespace std;
+
+class Union : public ComplexForm
 {
 	public :
+		
+		virtual bool Hit(const Point & testPoint) const;		
 
-		ConvexPolygon(const Point * pointList);
-		ConvexPolygon(const int * xList, const int * yList);
-		virtual ~ConvexPolygon();
+		Union(const string & argName);
+		virtual ~Union();
 
-	private :
-
-		Point * pointList;
-
-		virtual string ToSerializableString() const;
-		virtual void LoadOperation(const ifstream & file);
 };
 
-#endif // CONVEX_POLYGON_H
+#endif // UNION_H

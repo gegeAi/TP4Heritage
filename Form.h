@@ -11,6 +11,8 @@ class Form
 {
 	public :
 
+		friend class ComplexForm;
+
 		virtual bool Hit(const Point & testPoint) const = 0 ;
 		virtual void Move(const Offset & delta) = 0;
 		
