@@ -5,9 +5,10 @@ using namespace std;
 
 bool ConvexPolygon::Hit(const Point & testPoint) const
 {
+	int init = testForLine(pointList[size-1], pointList[0], testPoint);
 	for(int i(0); i<size; i++)
 	{
-		if(!testForLine(pointList[i], pointList[(i+1)%size], testPoint))
+		if(init*testForLine(pointList[i], pointList[i+1], testPoint) < 0)
 		{
 			return false;
 		}
@@ -71,38 +72,17 @@ Form(argName), size(argSize)
 #ifdef MAP
 	cout << "Call to <ConvexPolygon> constructor" << endl;
 #endif
-	pointList = new Point[size];
-	for(int i(0); i<size; i++)
-	{
-		pointList[i] = argPointList[i];
-	}
-	
-	Point tpsPoint;
-	tpsPoint = pointList[0] + pointList[2];
-	insidePointX = tpsPoint.x / 2.f;
-	insidePointY = tpsPoint.y / 2.f;
+	this->copyPoint(argPointList);
+		
 }
 
-ConvexPolygon::ConvexPolygon(const ConvexPolygon & second) : Form(second), size(second.size),
-insidePointX(second.insidePointX), insidePointY(second.insidePointY)
+ConvexPolygon::ConvexPolygon(const ConvexPolygon & second) : Form(second), size(second.size)
 {
 #ifdef MAP
 	cout << "Call to <ConvexPolygon> copy constructor" << endl;
 #endif
 
-	pointList = new Point[size];
-	for(int i(0); i<size; i++)
-	{
-		pointList[i] = second.pointList[i];
-	}
-
-	if(!isConvex())
-	{
-		string e = "ERR";
-		e += "\r\n";
-		e += "#Non convex Polygon";
-		throw e;
-	}
+	this->copyPoint(second.pointList);
 
 }
 
@@ -115,13 +95,29 @@ ConvexPolygon::~ConvexPolygon()
 	delete[] pointList;
 }
 
-bool ConvexPolygon::testForLine(const Point & p1,const Point & p2, const Point & testPoint) const
+int ConvexPolygon::testForLine(const Point & p1,const Point & p2, const Point & testPoint) const
 {
-	double coef = (p2.y-p1.y) / (p2.x - p1.x);
-	double constant = p1.y - coef*p1.x;
+	Vect line(p2);
+	line -= p1;
+	Vect test(testPoint);
+	test -= p1;
 
-	double referenceResult = coef*insidePointX - insidePointY + constant;
-	double testResult = coef*testPoint.x - testPoint.y + constant;
+	return line.x*test.x+line.y*test.y;
+}
 
-	return testResult*referenceResult > 0;
+void ConvexPolygon::copyPoint(const Point * argPointList)
+{
+	pointList = new Point[size];
+	for(int i(0); i<size; i++)
+	{
+		pointList[i] = argPointList[i];
+	}
+
+	if(!isConvex())
+	{
+		string e = "ERR";
+		e += "\r\n";
+		e += "#Non convex Polygon";
+		throw e;
+	}
 }
