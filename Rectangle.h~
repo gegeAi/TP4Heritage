@@ -15,7 +15,7 @@ class Rectangle : public Form
 
 		virtual string toString() const;
 		
-		Rectangle(const Point & upLeft, const Point & bottomRight);
+		Rectangle(const string & argName, const Point & argUpLeft, const Point & argBottomRight);
 		virtual ~Rectangle();
 
 	private :

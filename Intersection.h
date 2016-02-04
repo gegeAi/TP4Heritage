@@ -12,7 +12,9 @@ class Intersection : public ComplexForm
 		
 		virtual bool Hit(const Point & testPoint) const;
 
-		virtual string toString() const;		
+		virtual string toString() const;
+	
+		virtual Form* clone() const;		
 
 		Intersection(const string & argName);
 		virtual ~Intersection();

@@ -24,6 +24,11 @@ string Segment::toString() const
 	return stream.str();
 }
 
+Form* Segment::clone() const
+{
+	return new Segment(*this);
+}
+
 Segment::Segment(const string & name, const Point & argBegin, const Point & argEnd) : Form(name), 
 begin(argBegin), end(argEnd)
 {

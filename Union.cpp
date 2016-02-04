@@ -18,6 +18,11 @@ string Union::toString() const
 	return "UNION " + ComplexForm::toString();
 }
 
+Form* Union::clone() const
+{
+	return new Union(*this);
+}
+
 Union::Union(const string & argName):ComplexForm(argName)
 {
 #ifdef MAP

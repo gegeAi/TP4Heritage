@@ -1,0 +1,25 @@
+#include "MoveFct.h"
+
+#include "Project.h"
+
+GenericFct * MoveFct::operator()(Project & project)
+{
+	project.figure[subjectName]->Move(delta);
+	Offset invert(0, 0);
+	invert -= delta;
+	return new MoveFct(subjectName, invert);
+}
+
+MoveFct::MoveFct(const string & argName, const Offset & argDelta) : GenericFct(), delta(argDelta), subjectName(argName)
+{
+#ifdef MAP
+	cout << "Call to <MoveFct> constructor" << endl;
+#endif
+}
+
+MoveFct::~MoveFct()
+{
+#ifdef MAP
+	cout << "Call to <MoveFct> destructor" << endl;
+#endif
+}

@@ -18,7 +18,12 @@ string Union::toString() const
 	return "UNION " + ComplexForm::toString();
 }
 
-Union::Union(const string & argName):ComplexForm(name)
+Form* Segment::clone() const
+{
+	return new Union(*this);
+}
+
+Union::Union(const string & argName):ComplexForm(argName)
 {
 #ifdef MAP
 	cout << "Call to <Union> constructor" << endl;

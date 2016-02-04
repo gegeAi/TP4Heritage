@@ -36,6 +36,11 @@ string Rectangle::toString() const
 	return stream.str();
 }
 
+Form* Rectangle::clone() const
+{
+	return new Rectangle(*this);
+}
+
 Rectangle::Rectangle(const string & argName, const Point & argUpLeft, const Point & argBottomRight) : Form(argName), 
 upLeft(argUpLeft), bottomRight(argBottomRight)
 {

@@ -2,22 +2,33 @@
 #define PROJECT_H
 
 #include <map>
-#include <memory>
 #include <string>
+#include <deque>
 
-class Project : public Serializable
+#include "Form.h"
+#include "AddFct.h"
+#include "DeleteFct.h"
+#include "MoveFct.h"
+
+using namespace std;
+
+class GenericFct;
+
+class Project
 {
 	public :
 
-		virtual string ToSerializableString() const;
-		virtual void loadOperation(const string & line);
-		
+		friend class GenericFct;
+		friend class AddFct;
+		friend class DeleteFct;
+		friend class MoveFct;		
+
 		void AddSegment(const string & name, const Point & begin, const Point & end);
 		void AddRectangle(const string & name, const Point & leftUp, const Point & rightBottom);
-		void AddConvexPolygon(const string & name, const Point * listPoint);
+		void AddConvexPolygon(const string & name, const Point * listPoint, int length);
 
-		void Unit(const string & name, const string * forms);
-		void intersect(const string & name, const string * forms);
+		void Unit(const string & name, const string * forms, int length);
+		void intersect(const string & name, const string * forms, int length);
 
 		bool Hit(const string & name, const Point & testPoint) const;
 
@@ -35,11 +46,13 @@ class Project : public Serializable
 
 	private :
 
-		map<string, shared_ptr<Form> > actualFigure;
-		map<string, shared_ptr<Form> > ** historic;
+		map<string, Form*> figure;
+		deque<GenericFct *> undoHisto;
+		deque<GenericFct *> redoHisto;
 
-
-		
-}
+		void topToUndo(GenericFct * fct, bool fromRedo = false);
+		void topToRedo(GenericFct * fct);
+	
+};
 
 #endif // PROJECT_H

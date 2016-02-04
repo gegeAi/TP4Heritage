@@ -13,10 +13,8 @@ bool Segment::Hit(const Point & testPoint) const
 
 void Segment::Move(const Offset & delta)
 {
-	begin.x += delta.x;
-	end.x += delta.x;
-	begin.y += delta.y;
-	end.y += delta.y;
+	begin += delta;
+	end += delta;
 }
 
 string Segment::toString() const

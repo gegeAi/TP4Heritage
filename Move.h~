@@ -1,0 +1,8 @@
+class Move
+{
+	public :
+	
+	virtual void operator()(Project & project) const;
+
+	
+}

@@ -37,6 +37,11 @@ string ConvexPolygon::toString() const
 	return stream.str();
 }
 
+Form* ConvexPolygon::clone() const
+{
+
+}
+
 bool ConvexPolygon::isConvex() const
 {
 	Vect start1(pointList[size-1]);
@@ -100,7 +105,7 @@ int ConvexPolygon::testForLine(const Point & p1,const Point & p2, const Point & 
 	Vect line(p2);
 	line -= p1;
 	Vect test(testPoint);
-	testPoint -= p1;
+	test -= p1;
 
 	return line.x*test.x+line.y*test.y;
 }

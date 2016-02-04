@@ -36,15 +36,13 @@ string Rectangle::toString() const
 	return stream.str();
 }
 
-Rectangle::Rectangle(const string & name, const Point & upLeft, const Point & bottomRight) : Form(name), 
-this->upLeft(upLeft), this->bottomRight(bottomRight)
+Rectangle::Rectangle(const string & argName, const Point & argUpLeft, const Point & argBottomRight) : Form(argName), 
+upLeft(argUpLeft), bottomRight(argBottomRight)
 {
 #ifdef MAP
 	cout << "Call to <Rectangle> constructor" << endl;
 #endif
 }
-
-// todo check si il faut mettre : ~Form()
 
 Rectangle::~Rectangle()
 {

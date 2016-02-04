@@ -2,6 +2,11 @@
 
 using namespace std;
 
+string getName() const
+{
+	return name;
+}
+
 Form::Form(const string & argName) : name(argName)
 {
 #ifdef MAP
@@ -9,7 +14,7 @@ Form::Form(const string & argName) : name(argName)
 #endif
 }
 
-Form::~Form() : ~Serializable()
+Form::~Form()
 {
 #ifdef MAP
 	cout << "Call to <Form> constructor" << endl;

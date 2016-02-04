@@ -16,7 +16,10 @@ class ComplexForm : public Form
 
 		virtual string toString() const;
 
+		virtual Form* clone() const = 0;
+
 		ComplexForm(const string & name);
+		ComplexForm(const ComplexForm & copy);
 		virtual ~ComplexForm();
 
 		void operator+=(Form * anotherForm);

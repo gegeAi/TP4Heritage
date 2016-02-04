@@ -10,7 +10,9 @@ class Union : public ComplexForm
 {
 	public :
 		
-		virtual bool Hit(const Point & testPoint) const;		
+		virtual bool Hit(const Point & testPoint) const;
+
+		virtual string toString() const;		
 
 		Union(const string & argName);
 		virtual ~Union();

@@ -18,6 +18,10 @@ class Form
 		
 		virtual string toString() const = 0; 
 
+		virtual Form* clone() const = 0;
+
+		string getName() const;
+
 		Form(const string & argName);
 		virtual ~Form();
 

@@ -1,0 +1,15 @@
+#include "GenericFct.h"
+
+GenericFct::GenericFct(const string & argName) : name(argName)
+{
+#ifdef MAP
+	cout << "Call to <GenericFct> constructor" << endl;
+#endif
+}
+
+GenericFct::~GenericFct()
+{
+#ifdef MAP
+	cout << "Call to <GenericFct> destructor" << endl;
+#endif
+}

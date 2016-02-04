@@ -2,6 +2,8 @@
 #include "Rectangle.h"
 #include <iostream>
 
+#include <fstream>
+
 using namespace std;
 
 int main()
@@ -13,7 +15,7 @@ int main()
 
 	cout << test << endl;
 
-	if(test.Hit(Point(3,3)))
+	if(test.Hit(Point(1,1)))
 	{
 		cout << "HIT !" << endl;
 	}

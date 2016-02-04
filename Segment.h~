@@ -14,7 +14,7 @@ class Segment : public Form
 
 		virtual string toString() const;
 
-		Segment(const string & name, const Point & begin, const Point & end);
+		Segment(const string & name, const Point & argBegin, const Point & argEnd);
 		virtual ~Segment();
 
 	protected :

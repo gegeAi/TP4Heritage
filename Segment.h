@@ -14,6 +14,8 @@ class Segment : public Form
 
 		virtual string toString() const;
 
+		virtual Form* clone() const;
+
 		Segment(const string & name, const Point & argBegin, const Point & argEnd);
 		virtual ~Segment();
 

@@ -29,6 +29,14 @@ ComplexForm::ComplexForm(const string & name) : Form(name)
 #endif
 }
 
+ComplexForm::ComplexForm(const ComplexForm & copy) : Form(copy)
+{
+	for(int i(0); i<copy.group.size(); i++)
+	{
+		group.push_back(copy.group[i]->clone());
+	}
+}
+
 ComplexForm::~ComplexForm()
 {
 #ifdef MAP

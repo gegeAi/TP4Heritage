@@ -2,6 +2,11 @@
 
 using namespace std;
 
+string Form::getName() const
+{
+	return name;
+}
+
 Form::Form(const string & argName) : name(argName)
 {
 #ifdef MAP

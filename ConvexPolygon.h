@@ -13,6 +13,8 @@ class ConvexPolygon : public Form
 		virtual void Move(const Offset & delta);	
 
 		virtual string toString() const; 	
+
+		virtual Form* clone() const;
 		
 		ConvexPolygon(const string & argName, const Point * argPointList, int argSize);
 		ConvexPolygon(const ConvexPolygon & second); 
