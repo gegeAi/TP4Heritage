@@ -16,7 +16,7 @@ class Form
 		
 		virtual string toString() const = 0; 
 
-		Form(const string & name);
+		Form(const string & argName);
 		virtual ~Form();
 
 	protected :

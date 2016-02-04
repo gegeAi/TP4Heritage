@@ -12,9 +12,7 @@ class ConvexPolygon : public Form
 		virtual bool Hit(const Point & testPoint) const;
 		virtual void Move(const Offset & delta);	
 
-		virtual string toString() const; 
-
-		bool isConvex() const;	
+		virtual string toString() const; 	
 		
 		ConvexPolygon(const string & argName, const Point * argPointList, int argSize);
 		ConvexPolygon(const ConvexPolygon & second); 
@@ -24,11 +22,10 @@ class ConvexPolygon : public Form
 
 		Point * pointList;
 		int size;
-
-		int insidePointX;
-		int insidePointY;
 		
 		bool testForLine(const Point & p1,const Point & p2, const Point & testPoint) const; 
+		bool isConvex() const;
+		void copyPoint(const Point * argPointList);
 		
 
 };

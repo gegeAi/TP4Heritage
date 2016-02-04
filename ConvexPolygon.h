@@ -22,12 +22,10 @@ class ConvexPolygon : public Form
 
 		Point * pointList;
 		int size;
-
-		int insidePointX;
-		int insidePointY;
 		
-		bool testForLine(const Point & p1,const Point & p2, const Point & testPoint) const; 
+		int testForLine(const Point & p1,const Point & p2, const Point & testPoint) const; 
 		bool isConvex() const;
+		void copyPoint(const Point * argPointList);
 		
 
 };
