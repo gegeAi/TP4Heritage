@@ -36,6 +36,18 @@ string Rectangle::toString() const
 	return stream.str();
 }
 
+string Rectangle::toSerialString() const
+{
+	ostringstream toSave;
+	toSave << "R " << name << << " " << upLeft.x << " " << upLeft.y << " " << bottomRight.x << " " << bottomRight.y;
+	return toSave.str();
+}
+
+Form* Rectangle::clone() const
+{
+	return new Rectangle(*this);
+}
+
 Rectangle::Rectangle(const string & argName, const Point & argUpLeft, const Point & argBottomRight) : Form(argName), 
 upLeft(argUpLeft), bottomRight(argBottomRight)
 {

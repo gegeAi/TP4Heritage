@@ -36,6 +36,13 @@ string Rectangle::toString() const
 	return stream.str();
 }
 
+string Rectangle::toSerialString() const
+{
+	ostringstream toSave;
+	toSave << "R " << name << " " << upLeft.x << " " << upLeft.y << " " << bottomRight.x << " " << bottomRight.y;
+	return toSave.str();
+}
+
 Form* Rectangle::clone() const
 {
 	return new Rectangle(*this);

@@ -1,0 +1,38 @@
+#include "ClearFct.h"
+
+#include <fstream>
+#include <sstream>
+
+#include "Project.h"
+#include "LoadFct.h"
+
+unsigned char ClearFct::numberCleared = 0;
+
+GenericFct * ClearFct::operator()(Project & project)
+{
+	ostringstream name;
+	name << "created_by_clear_" << (int)numberCleared << ".auto";
+	project.Save(name.str().c_str());
+	for(map<string, Form*>::iterator it(figure.begin()); it != figure.end(); it++)
+	{
+		delete it->second;
+	}
+	figure.erase(figure.begin(), figure.end());
+	return new LoadFct(name.str().c_str());
+}
+
+ClearFct::ClearFct() : GenericFct()
+{
+#ifdef MAP
+	cout << "Call to <ClearFct> constructor" << endl;
+#endif
+
+	numberCleared++;
+}
+
+ClearFct::~ClearFct()
+{
+#ifdef MAP
+	cout << "Call to <ClearFct> destructor" << endl;
+#endif
+}

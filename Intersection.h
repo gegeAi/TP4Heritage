@@ -13,6 +13,7 @@ class Intersection : public ComplexForm
 		virtual bool Hit(const Point & testPoint) const;
 
 		virtual string toString() const;
+		virtual string toSerialString() const;
 	
 		virtual Form* clone() const;		
 

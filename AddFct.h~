@@ -10,7 +10,7 @@ class AddFct : public GenericFct
 {
 	public :
 	
-	virtual GenericFct * operator()(Project & project) const;
+	virtual GenericFct * operator()(Project & project);
 
 	void changeState();
 

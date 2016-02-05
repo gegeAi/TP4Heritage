@@ -13,6 +13,7 @@ class Segment : public Form
 		virtual void Move(const Offset & delta);
 
 		virtual string toString() const;
+		virtual string toSerialString() const;
 
 		virtual Form* clone() const;
 

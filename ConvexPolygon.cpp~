@@ -37,9 +37,22 @@ string ConvexPolygon::toString() const
 	return stream.str();
 }
 
+string ConvexPolygon::toSerialString() const
+{
+	ostringstream toSave;
+	toSave << "PC " << name;
+
+	for(int i(0); i<size; i++)
+	{
+		toSave << " " << pointList[i].x << " " << pointList[i].y;
+	}
+
+	return toSave.str();
+}
+
 Form* ConvexPolygon::clone() const
 {
-
+	return new ConvexPolygon(*this);
 }
 
 bool ConvexPolygon::isConvex() const

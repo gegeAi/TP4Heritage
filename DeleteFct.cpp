@@ -5,7 +5,8 @@
 
 GenericFct * DeleteFct::operator()(Project & project)
 {
-	delete project.figure[toDelete->getName()];
+	//Form * formToSave = toDelete;
+	//delete project.figure[toDelete->getName()];
 	project.figure.erase(toDelete->getName());
 	save = false;
 	return new AddFct(toDelete, true);

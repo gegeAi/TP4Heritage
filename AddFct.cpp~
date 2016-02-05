@@ -5,12 +5,17 @@
 
 GenericFct * AddFct::operator()(Project & project)
 {
-	project.figure[toAdd->getName()] = toAdd;
-	save = false;
+	if(figure.find(toAdd->getName() == figure.end())
+	{
+		project.figure[toAdd->getName()] = toAdd;
+		save = false;
+		
+	}
 	return new DeleteFct(toAdd, true);
+	
 }
 
-AddFct(Form * argToAdd, bool argSave) : GenericFct(), toAdd(argToAdd), save(argSave)
+AddFct::AddFct(Form * argToAdd, bool argSave) : GenericFct(), toAdd(argToAdd), save(argSave)
 {
 #ifdef MAP
 	cout << "Call to <AddFct> constructor" << endl;

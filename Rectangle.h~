@@ -14,6 +14,8 @@ class Rectangle : public Form
 		virtual void Move(const Offset & delta);
 
 		virtual string toString() const;
+
+		virtual Form* clone() const;
 		
 		Rectangle(const string & argName, const Point & argUpLeft, const Point & argBottomRight);
 		virtual ~Rectangle();

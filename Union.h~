@@ -12,7 +12,9 @@ class Union : public ComplexForm
 		
 		virtual bool Hit(const Point & testPoint) const;
 
-		virtual string toString() const;		
+		virtual string toString() const;	
+
+		virtual Form* clone() const;	
 
 		Union(const string & argName);
 		virtual ~Union();

@@ -22,6 +22,18 @@ string ComplexForm::toString() const
 	return display;
 }
 
+string ComplexForm::toSerialString() const
+{
+	string toSave;
+	for(int i(0); i<group.size(); i++)
+	{
+		toSave += group[i]->toSerialString();
+		toSave += "\r\n";
+	}
+
+	return toSave;
+}
+
 ComplexForm::ComplexForm(const string & name) : Form(name)
 {
 #ifdef MAP
@@ -52,5 +64,6 @@ ComplexForm::~ComplexForm()
 
 void ComplexForm::operator+=(Form * anotherForm)
 {
-	group.push_back(anotherForm);
+	group.push_back(anotherForm->clone());
+	group.back()->name += ("_" + name);
 }

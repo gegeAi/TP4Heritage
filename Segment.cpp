@@ -24,6 +24,13 @@ string Segment::toString() const
 	return stream.str();
 }
 
+string Segment::toSerialString() const
+{
+	ostringstream toSave;
+	toSave << "S " << name << " " << begin.x << " " << begin.y << " " << end.x + " " << end.y;
+	return toSave.str();
+}
+
 Form* Segment::clone() const
 {
 	return new Segment(*this);

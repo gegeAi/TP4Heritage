@@ -1,5 +1,7 @@
 #include "Project.h"
 
+#include <fstream>
+
 #include "Union.h"
 #include "Intersection.h"
 #include "ConvexPolygon.h"
@@ -8,6 +10,8 @@
 #include "AddFct.h"
 #include "DeleteFct.h"
 #include "MoveFct.h"
+#include "LoadFct.h"
+#include "ClearFct.h"
 
 void Project::AddSegment(const string & name, const Point & begin, const Point & end)
 {
@@ -42,7 +46,7 @@ void Project::Unit(const string & name, const string * forms, int length)
 
 }
 
-void Project::intersect(const string & name, const string * forms, int length)
+void Project::Intersect(const string & name, const string * forms, int length)
 {
 	Intersection *tps = new Intersection(name);
 	for(int i(0); i<length; i++)
@@ -67,36 +71,94 @@ void Project::Move(const string & name, const Offset & delta)
 	topToUndo(reverse);
 }
 
-void Project::Delete(const string & name)
+void Project::Delete(const string * name, int length)
 {
-	DeleteFct del(figure[name]);
+	for(int i(0); i<length; i++)
+	{
+		if(figure.find(name[i]) == figure.end())
+		{
+			cout << "ERR" << endl;
+			return;		
+		}
+	}
+	DeleteFct del(figure[name[0]]);
 	GenericFct * reverse = del(*this);
 	topToUndo(reverse);
+	for(int i(1); i<length; i++)
+	{
+		DeleteFct del(figure[name[i]]);
+		GenericFct * reverse = del(*this);
+		topToUndo(reverse, false, true);
+	}
+	cout << "OK" << endl;
 }
 
-string Project::toString() const
+string Project::ToString() const
 {
 	string display;
 	for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
 	{
 		display += it->second->toString();
-		display += "\n";
+		display += "\r\n";
 	}
 
-	display.erase(display.size()-1);
+	return display;
 }
 
 void Project::Undo()
 {
-	GenericFct * action(undoHisto.back());
+	GenericFct * action(undoHisto.back().top());
+	undoHisto.back().pop();
 	topToRedo((*action)(*this));
+	delete action;
+	while(!undoHisto.back().empty())
+	{
+		GenericFct * action(undoHisto.back().top());
+		undoHisto.back().pop();
+		topToRedo((*action)(*this), true);
+		delete action;
+	}
 }
 
 void Project::Redo()
 {
-	GenericFct * action(redoHisto.back());
-	topToUndo((*action)(*this), true);
+	GenericFct * action(redoHisto.back().top());
+	redoHisto.back().pop();
+	topToRedo((*action)(*this));
+	delete action;
+	while(!redoHisto.back().empty())
+	{
+		GenericFct * action(redoHisto.back().top());
+		redoHisto.back().pop();
+		topToUndo((*action)(*this), false, true);
+		delete action;
+	}
 }
+
+void Project::Save(const char * fileName) const
+{
+	ofstream file(fileName);
+	if(file)
+	{
+		for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
+		{
+			file << it->second->toSerialString() << endl;
+		}
+	}
+	file.close();
+}
+
+void Project::Load(const char * fileName)
+{
+	LoadFct load(fileName);
+	topToUndo(load(*this));
+}
+
+void Project::Clear()
+{
+	ClearFct clear;
+	topToUndo(clear(*this));
+}	
 
 Project::Project() : figure(), undoHisto(), redoHisto() 
 {
@@ -117,32 +179,62 @@ Project::~Project()
 	}
 }
 
-void Project::topToUndo(GenericFct * fct, bool fromRedo)
+void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
 {
 	if(undoHisto.size() >= 20)
 	{
-		delete undoHisto.front();
+		while(!undoHisto.front().empty())
+		{
+			delete undoHisto.front().top();
+			undoHisto.front().pop();
+		}
 		undoHisto.pop_front();
 	}
-	undoHisto.push_back(fct);
+	if(add)
+	{
+		undoHisto.front().push(fct);
+	}
+	else
+	{
+		stack<GenericFct *> tps;
+		tps.push(fct);
+		undoHisto.push_back(tps);
+	}
 
 	if(!fromRedo)
 	{
 		for(int i(0); i<redoHisto.size(); i++)
 		{
-			delete redoHisto[i];
+			while(!redoHisto[i].empty())
+			{
+				delete redoHisto[i].top();
+				redoHisto[i].pop();
+			}
 		}
 		redoHisto.clear();
 	}
 }
 
-void Project::topToRedo(GenericFct * fct)
+void Project::topToRedo(GenericFct * fct, bool add)
 {
 	if(redoHisto.size() >= 20)
 	{
-		delete redoHisto.front();
+		while(!redoHisto.front().empty())
+		{
+			delete redoHisto.front().top();
+			redoHisto.front().pop();
+		}
 		redoHisto.pop_front();
 	}
-	redoHisto.push_back(fct);
+	if(add)
+	{
+		redoHisto.front().push(fct);
+	}
+	else
+	{
+		stack<GenericFct *> tps;
+		tps.push(fct);
+		redoHisto.push_back(tps);
+	}
 }
 

@@ -17,6 +17,7 @@ class Form
 		virtual void Move(const Offset & delta) = 0;
 		
 		virtual string toString() const = 0; 
+		virtual string toSerialString() const = 0;
 
 		virtual Form* clone() const = 0;
 
