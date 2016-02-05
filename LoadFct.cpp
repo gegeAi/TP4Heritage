@@ -10,20 +10,25 @@ bool readLine(string & line, Project & subject);
 
 GenericFct * LoadFct::operator()(Project & project)
 {
-	ifstream file(fileName);
+	ifstream file(fileName.c_str());
 	
 	char * buff = new char[256];
 	while(file.getline(buff, 256))
 	{
 		string s;
 		s += buff;
+		streambuf *backup = cout.rdbuf(NULL);
+		project.bypassHisto = true;
 		readLine(s, project);
+		project.bypassHisto = false;
+		cout.rdbuf(backup);
 	}
+	file.close();
 	delete buff;
 	return new ClearFct();
 }
 
-LoadFct::LoadFct(const char * argFileName, bool deleteOnDeath) : GenericFct(), fileName(argFileName), del(deleteOnDeath)
+LoadFct::LoadFct(const string & argFileName, bool deleteOnDeath) : GenericFct(), fileName(argFileName), del(deleteOnDeath)
 {
 #ifdef MAP
 	cout << "Call to <LoadFct> constructor" << endl;
@@ -38,7 +43,7 @@ LoadFct::~LoadFct()
 
 	if(del)
 	{
-		remove(fileName);
+		remove(fileName.c_str());
 		ClearFct::numberCleared--;
 	}
 }

@@ -28,7 +28,7 @@ string ComplexForm::toSerialString() const
 	for(int i(0); i<group.size(); i++)
 	{
 		toSave += group[i]->toSerialString();
-		toSave += "\r\n";
+		toSave += "\n";
 	}
 
 	return toSave;
@@ -65,5 +65,8 @@ ComplexForm::~ComplexForm()
 void ComplexForm::operator+=(Form * anotherForm)
 {
 	group.push_back(anotherForm->clone());
-	group.back()->name += ("_" + name);
+	if(group.back()->name.find("_"+name) == string::npos)
+	{
+		group.back()->name += ("_" + name);
+	}
 }

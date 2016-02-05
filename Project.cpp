@@ -24,6 +24,7 @@ void Project::AddRectangle(const string & name, const Point & leftUp, const Poin
 {
 	AddFct add(new Rectangle(name, leftUp, rightBottom));
 	GenericFct * reverse = add(*this);
+	topToUndo(reverse);
 }
 
 void Project::AddConvexPolygon(const string & name, const Point * listPoint, int length)
@@ -137,7 +138,7 @@ void Project::Redo()
 
 void Project::Save(const char * fileName) const
 {
-	ofstream file(fileName);
+	ofstream file(fileName, ios::trunc);
 	if(file)
 	{
 		for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
@@ -160,7 +161,7 @@ void Project::Clear()
 	topToUndo(clear(*this));
 }	
 
-Project::Project() : figure(), undoHisto(), redoHisto() 
+Project::Project() : figure(), undoHisto(), redoHisto(), bypassHisto(false)
 {
 #ifdef MAP
 	cout << "Call to <Project> constructor" << endl;
@@ -181,60 +182,66 @@ Project::~Project()
 
 void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
 {
-	if(undoHisto.size() >= 20)
+	if(!bypassHisto)
 	{
-		while(!undoHisto.front().empty())
+		if(undoHisto.size() >= 20)
 		{
-			delete undoHisto.front().top();
-			undoHisto.front().pop();
-		}
-		undoHisto.pop_front();
-	}
-	if(add)
-	{
-		undoHisto.front().push(fct);
-	}
-	else
-	{
-		stack<GenericFct *> tps;
-		tps.push(fct);
-		undoHisto.push_back(tps);
-	}
-
-	if(!fromRedo)
-	{
-		for(int i(0); i<redoHisto.size(); i++)
-		{
-			while(!redoHisto[i].empty())
+			while(!undoHisto.front().empty())
 			{
-				delete redoHisto[i].top();
-				redoHisto[i].pop();
+				delete undoHisto.front().top();
+				undoHisto.front().pop();
 			}
+			undoHisto.pop_front();
 		}
-		redoHisto.clear();
+		if(add)
+		{
+			undoHisto.front().push(fct);
+		}
+		else
+		{
+			stack<GenericFct *> tps;
+			tps.push(fct);
+			undoHisto.push_back(tps);
+		}
+
+		if(!fromRedo)
+		{
+			for(int i(0); i<redoHisto.size(); i++)
+			{
+				while(!redoHisto[i].empty())
+				{
+					delete redoHisto[i].top();
+					redoHisto[i].pop();
+				}
+			}
+			redoHisto.clear();
+		}
 	}
 }
 
 void Project::topToRedo(GenericFct * fct, bool add)
 {
-	if(redoHisto.size() >= 20)
+	if(!bypassHisto)
 	{
-		while(!redoHisto.front().empty())
+		if(redoHisto.size() >= 20)
 		{
-			delete redoHisto.front().top();
-			redoHisto.front().pop();
+			while(!redoHisto.front().empty())
+			{
+				delete redoHisto.front().top();
+				redoHisto.front().pop();
+			}
+			redoHisto.pop_front();
 		}
-		redoHisto.pop_front();
-	}
-	if(add)
-	{
-		redoHisto.front().push(fct);
-	}
-	else
-	{
-		stack<GenericFct *> tps;
-		tps.push(fct);
-		redoHisto.push_back(tps);
+		if(add)
+		{
+			redoHisto.front().push(fct);
+		}
+		else
+		{
+			stack<GenericFct *> tps;
+			tps.push(fct);
+			redoHisto.push_back(tps);
+		}
 	}
 }
 

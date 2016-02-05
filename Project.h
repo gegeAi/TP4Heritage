@@ -24,6 +24,7 @@ class Project
 		friend class DeleteFct;
 		friend class MoveFct;		
 		friend class ClearFct;
+		friend class LoadFct;
 
 		void AddSegment(const string & name, const Point & begin, const Point & end);
 		void AddRectangle(const string & name, const Point & leftUp, const Point & rightBottom);
@@ -55,6 +56,8 @@ class Project
 		map<string, Form*> figure;
 		deque< stack<GenericFct *> > undoHisto;
 		deque< stack<GenericFct *> > redoHisto;
+		
+		bool bypassHisto;
 
 		void topToUndo(GenericFct * fct, bool fromRedo = false, bool add = false);
 		void topToRedo(GenericFct * fct, bool add = false);

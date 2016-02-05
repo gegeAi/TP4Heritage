@@ -64,6 +64,9 @@ ComplexForm::~ComplexForm()
 
 void ComplexForm::operator+=(Form * anotherForm)
 {
-	group.push_back(anotherForm);
-	group.back()->name += ("_" + name);
+	group.push_back(anotherForm->clone());
+	if(group.back()->name.find("_"+name) == string::npos)
+	{
+		group.back()->name += ("_" + name);
+	}
 }

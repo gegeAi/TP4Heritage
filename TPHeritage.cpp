@@ -88,10 +88,12 @@ bool readLine(string & line, Project & subject)
 	else if(command.compare("UNDO") == 0)
 	{
 		subject.Undo();
+		cout << "OK" << endl;
 	}
 	else if(command.compare("REDO") == 0)
 	{
 		subject.Redo();
+		cout << "OK" << endl;
 	}
 	else if(command.compare("LOAD") == 0)
 	{
@@ -195,9 +197,9 @@ void pc(istringstream & line, Project & subject)
 	else
 	{
 		Point points[param.size()/2];
-		for(int i(0); i<param.size()/2; i+=2)
+		for(int i(0); i<param.size()/2; i++)
 		{
-			points[i] = Point(param[i], param[i+1]);
+			points[i] = Point(param[2*i], param[2*i+1]);
 		}
 		try
 		{

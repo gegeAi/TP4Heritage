@@ -12,12 +12,12 @@ class LoadFct : public GenericFct
 	
 	virtual GenericFct * operator()(Project & project);
 
-	LoadFct(const char * argFileName, bool deleteOnDeath = false); 
+	LoadFct(const string & argFileName, bool deleteOnDeath = false); 
 	virtual ~LoadFct();
 
 	private :
 
-	const char * fileName;	
+	const string fileName;	
 	bool del;
 	
 };

@@ -21,7 +21,8 @@ string Intersection::toString() const
 string Intersection::toSerialString() const
 {
 	string toSave(ComplexForm::toSerialString());
-	toSave += "OI";
+	toSave += "OI ";
+	toSave += name;	
 	string tpsToDelete("DELETE");;
 	for(int i(0); i<group.size(); i++)
 	{

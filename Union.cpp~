@@ -26,7 +26,8 @@ Form* Union::clone() const
 string Union::toSerialString() const
 {
 	string toSave(ComplexForm::toSerialString());
-	toSave += "OR";
+	toSave += "OR ";
+	toSave += name;
 	string tpsToDelete("DELETE");;
 	for(int i(0); i<group.size(); i++)
 	{

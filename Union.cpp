@@ -37,7 +37,7 @@ string Union::toSerialString() const
 		toSave += group[i]->getName();
 	}
 
-	toSave += "\r\n";
+	toSave += "\n";
 	toSave += tpsToDelete;
 
 	return toSave;

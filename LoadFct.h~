@@ -17,7 +17,8 @@ class LoadFct : public GenericFct
 
 	private :
 
-	const char * fileName;	
+	const string fileName;	
+	bool del;
 	
 };
 
