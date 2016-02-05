@@ -98,7 +98,7 @@ void Project::Save(const char * fileName) const
 	{
 		for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
 		{
-			file << it->second->toSerialString() << endl;
+			file << it->second->ToSerialString() << endl;
 		}
 	}
 	file.close();

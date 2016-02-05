@@ -6,6 +6,7 @@
 using namespace std;
 
 bool readLine(string & line, Project & subject);
+
 void segment(istringstream & line, Project & subject);
 void rectangle(istringstream & line, Project & subject);
 void pc(istringstream & line, Project & subject);
@@ -44,6 +45,9 @@ int main()
 }
 
 bool readLine(string & line, Project & subject)
+// Algorithme
+// charge le nom de la commande
+// effectue l'action en consequence dans la condition
 {
 	string command;
 	istringstream input(line);
@@ -120,18 +124,26 @@ bool readLine(string & line, Project & subject)
 	return true;
 }
 
+//-------------------------------------------------------------- Sous Fonctions de readLine
+
+// Algorithme 
+// charger nom si possible
+// charger parametre si possible
+// si mauvais nom ou mauvais parametre, afficher "ERR"
+// sinon effectuer l'action
+
 void segment(istringstream & line, Project & subject)
 {
 	string name;
 	if(!line.eof())
 	{
 		line >> name;
-	}
+	} 
 	else
 	{	
 		cout << "ERR" << endl;
 		return;
-	}
+	} // if eof
 
 	vector<int> param;
 	loadParam(line, param);
@@ -144,7 +156,7 @@ void segment(istringstream & line, Project & subject)
 	{
 		subject.AddSegment(name, Point(param[0], param[1]), Point(param[2], param[3]));
 		cout << "OK" << endl;
-	}
+	} // if param
 }
 
 void rectangle(istringstream & line, Project & subject)
@@ -158,7 +170,7 @@ void rectangle(istringstream & line, Project & subject)
 	{	
 		cout << "ERR" << endl;
 		return;
-	}
+	} // if eof
 
 	vector<int> param;
 	loadParam(line, param);
@@ -171,7 +183,7 @@ void rectangle(istringstream & line, Project & subject)
 	{
 		subject.AddRectangle(name, Point(param[0], param[1]), Point(param[2], param[3]));
 		cout << "OK" << endl;
-	}
+	} // if param
 }
 
 void pc(istringstream & line, Project & subject)
@@ -185,7 +197,7 @@ void pc(istringstream & line, Project & subject)
 	{	
 		cout << "ERR" << endl;
 		return;
-	}
+	} // if eof
 
 	vector<int> param;
 	loadParam(line, param);
@@ -200,7 +212,7 @@ void pc(istringstream & line, Project & subject)
 		for(int i(0); i<param.size()/2; i++)
 		{
 			points[i] = Point(param[2*i], param[2*i+1]);
-		}
+		} // for
 		try
 		{
 			subject.AddConvexPolygon(name, points, param.size()/2);
@@ -209,8 +221,8 @@ void pc(istringstream & line, Project & subject)
 		catch(string & e)
 		{
 			cout << e << endl;
-		}
-	}
+		} // try catch non convex
+	} // if param
 }
 
 void unit(istringstream & line, Project & subject)
@@ -266,7 +278,7 @@ void hit(istringstream & line, Project & subject)
 	{	
 		cout << "ERR" << endl;
 		return;
-	}
+	} // if eof
 
 	vector<int> param;
 	loadParam(line, param);
@@ -284,8 +296,8 @@ void hit(istringstream & line, Project & subject)
 		else
 		{
 			cout << "NO" << endl;
-		}
-	}
+		} // if hit
+	} // if param
 }
 
 void move(istringstream & line, Project & subject)
@@ -299,7 +311,7 @@ void move(istringstream & line, Project & subject)
 	{	
 		cout << "ERR" << endl;
 		return;
-	}
+	} // if eof
 
 	vector<int> param;
 	loadParam(line, param);
@@ -312,7 +324,7 @@ void move(istringstream & line, Project & subject)
 	{
 		subject.Move(name, Offset(param[0], param[1]));
 		cout << "OK" << endl;
-	}
+	} // if param
 }
 
 void del(istringstream & line, Project & subject)
@@ -359,6 +371,8 @@ void save(istringstream & line, Project & subject)
 	subject.Save(name.c_str());
 	cout << "OK" << endl;
 }
+
+//-------------------------------------------------------- Charge des parametres
 
 template<typename T>
 void loadParam(istringstream & line, vector<T> & param)

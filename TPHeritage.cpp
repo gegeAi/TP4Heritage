@@ -118,7 +118,7 @@ bool readLine(string & line, Project & subject)
 	}
 	else
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 	}
 
 	return true;
@@ -141,7 +141,7 @@ void segment(istringstream & line, Project & subject)
 	} 
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	} // if eof
 
@@ -149,7 +149,7 @@ void segment(istringstream & line, Project & subject)
 	loadParam(line, param);
 	if(param.size() != 4)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	else
@@ -168,7 +168,7 @@ void rectangle(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	} // if eof
 
@@ -176,7 +176,7 @@ void rectangle(istringstream & line, Project & subject)
 	loadParam(line, param);
 	if(param.size() != 4)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	else
@@ -195,7 +195,7 @@ void pc(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	} // if eof
 
@@ -203,7 +203,7 @@ void pc(istringstream & line, Project & subject)
 	loadParam(line, param);
 	if(param.size() % 2 != 0)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	else
@@ -234,7 +234,7 @@ void unit(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 
@@ -255,7 +255,7 @@ void intersect(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 
@@ -276,7 +276,7 @@ void hit(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	} // if eof
 
@@ -284,7 +284,7 @@ void hit(istringstream & line, Project & subject)
 	loadParam(line, param);
 	if(param.size() != 2)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	else
@@ -309,7 +309,7 @@ void move(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	} // if eof
 
@@ -317,7 +317,7 @@ void move(istringstream & line, Project & subject)
 	loadParam(line, param);
 	if(param.size() != 2)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	else
@@ -334,7 +334,7 @@ void del(istringstream & line, Project & subject)
 	
 	if(param.size() == 0)
 	{
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	subject.Delete(&param[0], param.size());
@@ -349,7 +349,7 @@ void load(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	subject.Load(name.c_str());
@@ -365,7 +365,7 @@ void save(istringstream & line, Project & subject)
 	}
 	else
 	{	
-		cout << "ERR" << endl;
+		cerr << "ERR" << endl;
 		return;
 	}
 	subject.Save(name.c_str());

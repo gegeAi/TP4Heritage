@@ -128,7 +128,7 @@ void Project::Delete(const string * name, int length)
 	{
 		if(figure.find(name[i]) == figure.end())
 		{
-			cout << "ERR" << endl;
+			cerr << "ERR" << endl;
 			return;		
 		} // if find name
 	} // for
