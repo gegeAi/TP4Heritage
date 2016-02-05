@@ -3,9 +3,17 @@
 //------------------------------------------------------- includes personnels
 
 #include "DeleteFct.h"
+#include "Project.h"
 
 GenericFct * AddFct::operator()(Project & project)
 {
+	for(int i(0); i< project.figure.size(); i++)
+	{
+		while(project.figure[i]->getName().compare(toAdd.getName) == 0)
+		{
+			toAdd->correctSameName();
+		}
+	}
 	project.figure[toAdd->getName()] = toAdd;
 	save = false;
 	return new DeleteFct(toAdd, true);

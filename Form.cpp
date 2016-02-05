@@ -7,6 +7,11 @@ string Form::getName() const
 	return name;
 }
 
+void Form::correctSameName()
+{
+	name += .copy;
+}
+
 Form::Form(const string & argName) : name(argName)
 {
 #ifdef MAP

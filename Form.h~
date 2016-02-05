@@ -54,7 +54,7 @@ class Form
 
 		string getName() const;
 
-//------------------------------------------------------- constructeurs/destructeurs
+//------------------------------------------------------- constructeurs/destructeur
 
 		Form(const string & argName);
 		virtual ~Form();
