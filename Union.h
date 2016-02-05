@@ -1,7 +1,10 @@
+//---------------------------UNION-------------------------------------
+
 #ifndef UNION_H
 #define UNION_H
 
-#include <vector>
+//------------------------------------------------------- includes personnels
+
 #include "ComplexForm.h"
 
 using namespace std;
@@ -9,13 +12,21 @@ using namespace std;
 class Union : public ComplexForm
 {
 	public :
+
+//------------------------------------------------------- methodes heritees de Form
 		
 		virtual bool Hit(const Point & testPoint) const;
 
-		virtual string toString() const;
-		virtual string toSerialString() const;	
+		virtual string ToString() const;
+		// Mode d'emploi
+		// renvoie l'image de l'objet sous la forme
+		// UNION name : group[0].name | .. | group[n].name
+		
+		virtual string ToSerialString() const;
+	
+		virtual Form* Clone() const;		
 
-		virtual Form* clone() const;	
+//------------------------------------------------------- constructeurs/destructeur
 
 		Union(const string & argName);
 		virtual ~Union();

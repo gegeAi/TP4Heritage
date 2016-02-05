@@ -23,5 +23,5 @@ Form::~Form()
 
 ostream & operator<<(ostream & out, const Form & obj)
 {
-	return out << obj.toString();
+	return out << obj.ToString();
 }

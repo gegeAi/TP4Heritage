@@ -1,7 +1,14 @@
 #include "Rectangle.h"
+
+//------------------------------------------------------- includes systemes
+
 #include <sstream>
 
 bool Rectangle::Hit(const Point & testPoint) const
+// Algorithme
+// "deplace" le rectangle pour que upLeft corresponde a l'origine
+// par deux demi produits scalaires, verifie que 0 < testPoint.x < bottomRight.x
+// et 0 < testPoint.y < bottomRight.y
 {
 	double scalarProduct1 = (testPoint.x-upLeft.x)*(bottomRight.x-upLeft.x);
 	double scalarProduct2 = (bottomRight.x-upLeft.x)*(bottomRight.x-upLeft.x);
@@ -23,27 +30,25 @@ bool Rectangle::Hit(const Point & testPoint) const
 
 void Rectangle::Move(const Offset & delta)
 {
-	upLeft.x += delta.x;
-	bottomRight.x += delta.x;
-	upLeft.y += delta.y;
-	bottomRight.y += delta.y;
+	upLeft += delta;
+	bottomRight += delta;
 }
 
-string Rectangle::toString() const
+string Rectangle::ToString() const
 {
 	ostringstream stream;
 	stream << "RECTANGLE " << name << " (" << upLeft.x << ";" << upLeft.y << ") (" << bottomRight.x << ";" << bottomRight.y << ")";
 	return stream.str();
 }
 
-string Rectangle::toSerialString() const
+string Rectangle::ToSerialString() const
 {
 	ostringstream toSave;
 	toSave << "R " << name << " " << upLeft.x << " " << upLeft.y << " " << bottomRight.x << " " << bottomRight.y;
 	return toSave.str();
 }
 
-Form* Rectangle::clone() const
+Form* Rectangle::Clone() const
 {
 	return new Rectangle(*this);
 }

@@ -1,9 +1,17 @@
 #include "ConvexPolygon.h"
+
+//------------------------------------------------------- includes systemes
+
 #include <sstream>
 
-using namespace std;
-
 bool ConvexPolygon::Hit(const Point & testPoint) const
+// Algorithme
+// defini de quel cote testPoint est de la droite init = (pn, p0)
+// Pour chaque autre cote faire :
+// Si testPoint est du cote oppose a celui defini par init
+// retourner false
+// fin pour
+// retourner true
 {
 	int init = testForLine(pointList[size-1], pointList[0], testPoint);
 	for(int i(0); i<size; i++)
@@ -24,7 +32,7 @@ void ConvexPolygon::Move(const Offset & delta)
 	}
 }
 
-string ConvexPolygon::toString() const 	
+string ConvexPolygon::ToString() const 	
 {
 	ostringstream stream;
 	stream << "CONVEXPOLYGON " << name;
@@ -37,7 +45,7 @@ string ConvexPolygon::toString() const
 	return stream.str();
 }
 
-string ConvexPolygon::toSerialString() const
+string ConvexPolygon::ToSerialString() const
 {
 	ostringstream toSave;
 	toSave << "PC " << name;
@@ -50,12 +58,17 @@ string ConvexPolygon::toSerialString() const
 	return toSave.str();
 }
 
-Form* ConvexPolygon::clone() const
+Form* ConvexPolygon::Clone() const
 {
 	return new ConvexPolygon(*this);
 }
 
 bool ConvexPolygon::isConvex() const
+// Algorithme
+// effectue le produit vectoriel de tous les cotes
+// adjacents
+// si ils ont tous le meme signe retourner true
+// sinon retourner false
 {
 	Vect start1(pointList[size-1]);
 	start1 -= pointList[0];
@@ -114,6 +127,8 @@ ConvexPolygon::~ConvexPolygon()
 }
 
 int ConvexPolygon::testForLine(const Point & p1,const Point & p2, const Point & testPoint) const
+// Algorithme
+// renvoie le produit scalaire des vecteurs(p1, p2) et (p1, testPoint)
 {
 	Vect line(p2);
 	line -= p1;
@@ -124,6 +139,9 @@ int ConvexPolygon::testForLine(const Point & p1,const Point & p2, const Point & 
 }
 
 void ConvexPolygon::copyPoint(const Point * argPointList)
+// Algorithme
+// a l'initialisation, copie le tableau de point
+// en parametre et verifie si le polygone est convexe
 {
 	pointList = new Point[size];
 	for(int i(0); i<size; i++)

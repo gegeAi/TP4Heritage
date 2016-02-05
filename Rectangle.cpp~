@@ -39,7 +39,7 @@ string Rectangle::toString() const
 string Rectangle::toSerialString() const
 {
 	ostringstream toSave;
-	toSave << "R " << name << << " " << upLeft.x << " " << upLeft.y << " " << bottomRight.x << " " << bottomRight.y;
+	toSave << "R " << name << " " << upLeft.x << " " << upLeft.y << " " << bottomRight.x << " " << bottomRight.y;
 	return toSave.str();
 }
 

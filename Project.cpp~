@@ -1,6 +1,10 @@
 #include "Project.h"
 
+//------------------------------------------------------- includes systemes
+
 #include <fstream>
+
+//------------------------------------------------------- includes personnels
 
 #include "Union.h"
 #include "Intersection.h"
@@ -13,6 +17,14 @@
 #include "LoadFct.h"
 #include "ClearFct.h"
 
+//------------------------------------------------------- Fonctions de creation
+
+// Algorithme
+// creation de l'objet desire
+// creation du foncteur AddFct add correspondant
+// Appel a add(*this) pour effectuer effectivement l'ajout
+// recuperation de l'inverse (DeleteFct) et stockage dans l'historique 
+
 void Project::AddSegment(const string & name, const Point & begin, const Point & end)
 {
 	AddFct add(new Segment(name, begin, end));
@@ -24,6 +36,7 @@ void Project::AddRectangle(const string & name, const Point & leftUp, const Poin
 {
 	AddFct add(new Rectangle(name, leftUp, rightBottom));
 	GenericFct * reverse = add(*this);
+	topToUndo(reverse);
 }
 
 void Project::AddConvexPolygon(const string & name, const Point * listPoint, int length)
@@ -59,10 +72,39 @@ void Project::Intersect(const string & name, const string * forms, int length)
 
 }
 
+//------------------------------------------------------- Fonctions de passives (sans modifications)
+
 bool Project::Hit(const string & name, const Point & testPoint) const
 {
 	return figure.at(name)->Hit(testPoint);
 }
+
+string Project::ToString() const
+{
+	string display;
+	for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
+	{
+		display += it->second->ToString();
+		display += "\r\n";
+	}
+
+	return display;
+}
+
+void Project::Save(const char * fileName) const
+{
+	ofstream file(fileName, ios::trunc);
+	if(file)
+	{
+		for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
+		{
+			file << it->second->toSerialString() << endl;
+		}
+	}
+	file.close();
+}
+
+//------------------------------------------------------- Deplacement
 
 void Project::Move(const string & name, const Offset & delta)
 {
@@ -71,7 +113,16 @@ void Project::Move(const string & name, const Offset & delta)
 	topToUndo(reverse);
 }
 
+//------------------------------------------------------- Suppression
+
 void Project::Delete(const string * name, int length)
+// Algorithme
+// si une forme n'existe pas
+// return
+// sinon
+// cree une DeleteFct par Form a supprimer
+// et les supprime une a une
+// Ajoute des inverses (AddFct) en parrallele a l'historique
 {
 	for(int i(0); i<length; i++)
 	{
@@ -79,8 +130,8 @@ void Project::Delete(const string * name, int length)
 		{
 			cout << "ERR" << endl;
 			return;		
-		}
-	}
+		} // if find name
+	} // for
 	DeleteFct del(figure[name[0]]);
 	GenericFct * reverse = del(*this);
 	topToUndo(reverse);
@@ -89,21 +140,17 @@ void Project::Delete(const string * name, int length)
 		DeleteFct del(figure[name[i]]);
 		GenericFct * reverse = del(*this);
 		topToUndo(reverse, false, true);
-	}
+	} // for
 	cout << "OK" << endl;
 }
 
-string Project::ToString() const
-{
-	string display;
-	for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
-	{
-		display += it->second->toString();
-		display += "\r\n";
-	}
+//------------------------------------------------------- Undo/Redo
 
-	return display;
-}
+// Algorithme
+// sort chaque action parrallele du sommet la pile associee
+// et les effectue une a une
+// remet ensuite leurs inverses dans la l'autre pile en parrallele 
+// supprime le sommet de la pile associee
 
 void Project::Undo()
 {
@@ -135,18 +182,7 @@ void Project::Redo()
 	}
 }
 
-void Project::Save(const char * fileName) const
-{
-	ofstream file(fileName, ios::trunc);
-	if(file)
-	{
-		for(map<string, Form*>::const_iterator it(figure.begin()); it != figure.end(); it++)
-		{
-			file << it->second->toSerialString() << endl;
-		}
-	}
-	file.close();
-}
+//----------------------------------------------------------------
 
 void Project::Load(const char * fileName)
 {
@@ -180,6 +216,12 @@ Project::~Project()
 }
 
 void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
+// Algorithme
+// Si l'historique est plein
+// on supprime l'element le plus ancien
+// Si l'ajout est en parrallele, on ajoute au meme etage
+// sinon on cree un nouvel etage et on l'ajoute au nouveau
+// Si l'appel ne vient pas de Redo, on vide la pile redo
 {
 	if(!bypassHisto)
 	{
@@ -189,9 +231,9 @@ void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
 			{
 				delete undoHisto.front().top();
 				undoHisto.front().pop();
-			}
+			} // while
 			undoHisto.pop_front();
-		}
+		} // if >= 20
 		if(add)
 		{
 			undoHisto.front().push(fct);
@@ -201,7 +243,7 @@ void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
 			stack<GenericFct *> tps;
 			tps.push(fct);
 			undoHisto.push_back(tps);
-		}
+		} // if add
 
 		if(!fromRedo)
 		{
@@ -214,11 +256,16 @@ void Project::topToUndo(GenericFct * fct, bool fromRedo, bool add)
 				}
 			}
 			redoHisto.clear();
-		}
-	}
+		} // if fromRedo
+	} // if bypass
 }
 
 void Project::topToRedo(GenericFct * fct, bool add)
+// Algorithme
+// Si redo est plein
+// on supprime l'element le plus ancien
+// Si l'ajout est en parrallele, on ajoute au meme etage
+// sinon on cree un nouvel etage et on l'ajoute au nouveau
 {
 	if(!bypassHisto)
 	{
@@ -228,9 +275,9 @@ void Project::topToRedo(GenericFct * fct, bool add)
 			{
 				delete redoHisto.front().top();
 				redoHisto.front().pop();
-			}
+			} // while
 			redoHisto.pop_front();
-		}
+		} // if >= 20
 		if(add)
 		{
 			redoHisto.front().push(fct);
@@ -240,7 +287,7 @@ void Project::topToRedo(GenericFct * fct, bool add)
 			stack<GenericFct *> tps;
 			tps.push(fct);
 			redoHisto.push_back(tps);
-		}
-	}
+		} // if add
+	} // if bypass
 }
 

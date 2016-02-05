@@ -1,9 +1,17 @@
+//---------------------------COMPLEX_FORM-------------------------------------
+
 #ifndef COMPLEX_FORM_H
 #define COMPLEX_FORM_H
 
+//------------------------------------------------------- includes systemes
+
 #include <vector>
 
+//------------------------------------------------------- includes personnels
+
 #include "Form.h"
+
+//------------------------------------------------------- classe
 
 using namespace std;
 
@@ -11,12 +19,17 @@ class ComplexForm : public Form
 {
 	public :
 		
+//------------------------------------------------------- methodes heritees de Form
+
 		virtual bool Hit(const Point & testPoint) const = 0 ;
 		virtual void Move(const Offset & delta);
 
-		virtual string toString() const;
+		virtual string ToString() const;
+		virtual string ToSerialString() const;
 
-		virtual Form* clone() const = 0;
+		virtual Form* Clone() const = 0;
+
+//------------------------------------------------------- constructeurs/destructeur
 
 		ComplexForm(const string & name);
 		ComplexForm(const ComplexForm & copy);

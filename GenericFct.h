@@ -1,7 +1,13 @@
+//---------------------------GENERIC_FCT-------------------------------------
+
 #ifndef GENERIC_FCT_H
 #define GENERIC_FCT_H
 
+//------------------------------------------------------- includes systemes
+
 #include <string>
+
+//------------------------------------------------------- classe
 
 using namespace std;
 
@@ -11,7 +17,14 @@ class GenericFct
 {
 	public :
 
+//------------------------------------------------------- surcharge d'operateurs
+
 	virtual GenericFct * operator()(Project & project) = 0;
+	// Mode d'emploi
+	// operateur generique destine a etre utilise par Project, 
+	// effectue l'action specifique de la classe
+
+//------------------------------------------------------- constructeurs/destructeur
 
 	GenericFct();
 	virtual ~GenericFct();

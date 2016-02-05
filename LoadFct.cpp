@@ -1,7 +1,11 @@
 #include "LoadFct.h"
 
+//------------------------------------------------------- includes systemes
+
 #include <cstdio>
 #include <fstream>
+
+//------------------------------------------------------- includes personnels
 
 #include "Project.h"
 #include "ClearFct.h"
@@ -9,6 +13,13 @@
 bool readLine(string & line, Project & subject);
 
 GenericFct * LoadFct::operator()(Project & project)
+// Algorithme
+// lecture du fichier :
+// pour chaque ligne :
+// bypass historique
+// bypass sortie standard
+// interpretation de la ligne
+// fin bypass
 {
 	ifstream file(fileName.c_str());
 	

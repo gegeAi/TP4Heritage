@@ -17,10 +17,11 @@ GenericFct * LoadFct::operator()(Project & project)
 	{
 		string s;
 		s += buff;
-		streambuf backup = cout.rdbuf(NULL);
+		streambuf *backup = cout.rdbuf(NULL);
 		project.bypassHisto = true;
 		readLine(s, project);
 		project.bypassHisto = false;
+		cout.rdbuf(backup);
 	}
 	file.close();
 	delete buff;

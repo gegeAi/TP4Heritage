@@ -1,11 +1,17 @@
 #include "DeleteFct.h"
 
+//------------------------------------------------------- includes personnels
+
 #include "AddFct.h"
 #include "Project.h"
 
 GenericFct * DeleteFct::operator()(Project & project)
+// Algorithme
+// copie de la Form a supprimer
+// suppression de l'original
+// creation d'un inverse avec la copie a reajouter
 {
-	Form * formToSave = toDelete->clone();
+	Form * formToSave = toDelete->Clone();
 	delete project.figure[toDelete->getName()];
 	project.figure.erase(toDelete->getName());
 	save = false;

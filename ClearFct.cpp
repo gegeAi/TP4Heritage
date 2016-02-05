@@ -1,7 +1,11 @@
 #include "ClearFct.h"
 
+//------------------------------------------------------- includes systemes
+
 #include <fstream>
 #include <sstream>
+
+//------------------------------------------------------- includes personnels
 
 #include "Project.h"
 #include "LoadFct.h"
@@ -9,6 +13,11 @@
 unsigned char ClearFct::numberCleared = 0;
 
 GenericFct * ClearFct::operator()(Project & project)
+// Algorithme
+// generation du nom de la sauvegarde auto
+// sauvegarde dans le fichier en cas de Undo
+// purge de la figure
+// renvoie de l'inverse parametre avec le chemin de la sauvegarde
 {
 	ostringstream name;
 	name << "created_by_clear_" << (int)numberCleared << ".auto";

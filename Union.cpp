@@ -1,6 +1,12 @@
 #include "Union.h"
 
 bool Union::Hit(const Point & testPoint) const
+// Algorithme
+// Pour chaque Form de group faire :
+// Si testPoint est dans la forme 
+// retourner true
+// fin pour
+// retourner false
 {
 	for(int i(0); i<group.size(); i++)
 	{
@@ -13,19 +19,23 @@ bool Union::Hit(const Point & testPoint) const
 	return false;
 }
 
-string Union::toString() const
+string Union::ToString() const
 {
-	return "UNION " + ComplexForm::toString();
+	return "UNION " + ComplexForm::ToString();
 }
 
-Form* Union::clone() const
-{
-	return new Union(*this);
-}
 
-string Union::toSerialString() const
+
+string Union::ToSerialString() const
+// Algorithme
+// renvoie une chaque de la forme
+// "creation composante 1"
+// ..
+// "creation composante n"
+// OR name [nom des composantes]"
+// DELETE [nom des composantes]
 {
-	string toSave(ComplexForm::toSerialString());
+	string toSave(ComplexForm::ToSerialString());
 	toSave += "OR ";
 	toSave += name;
 	string tpsToDelete("DELETE");;
@@ -41,6 +51,11 @@ string Union::toSerialString() const
 	toSave += tpsToDelete;
 
 	return toSave;
+}
+
+Form* Union::Clone() const
+{
+	return new Union(*this);
 }
 
 Union::Union(const string & argName):ComplexForm(argName)

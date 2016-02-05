@@ -1,5 +1,9 @@
+//---------------------------DELETE_FCT-------------------------------------
+
 #ifndef DELETE_FCT_H
 #define DELETE_FCT_H
+
+//------------------------------------------------------- includes personnels
 
 #include "GenericFct.h"
 #include "Form.h"
@@ -12,12 +16,12 @@ class DeleteFct : public GenericFct
 	
 	virtual GenericFct * operator()(Project & project);
 
-	DeleteFct(Form ** argToDelete, bool argSave = false);
+	DeleteFct(Form * argToDelete, bool argSave = false);
 	virtual ~DeleteFct();
 
 	private :
 
-	Form ** toDelete;	
+	Form * toDelete;	
 	bool save;
 	
 };

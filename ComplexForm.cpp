@@ -8,7 +8,7 @@ void ComplexForm::Move(const Offset & delta)
 	}
 }
 
-string ComplexForm::toString() const
+string ComplexForm::ToString() const
 {
 	string display(name + " : ");
 	for(int i(0); i<group.size()-1; i++)
@@ -22,12 +22,12 @@ string ComplexForm::toString() const
 	return display;
 }
 
-string ComplexForm::toSerialString() const
+string ComplexForm::ToSerialString() const
 {
 	string toSave;
 	for(int i(0); i<group.size(); i++)
 	{
-		toSave += group[i]->toSerialString();
+		toSave += group[i]->ToSerialString();
 		toSave += "\n";
 	}
 
@@ -45,7 +45,7 @@ ComplexForm::ComplexForm(const ComplexForm & copy) : Form(copy)
 {
 	for(int i(0); i<copy.group.size(); i++)
 	{
-		group.push_back(copy.group[i]->clone());
+		group.push_back(copy.group[i]->Clone());
 	}
 }
 
@@ -63,8 +63,11 @@ ComplexForm::~ComplexForm()
 
 
 void ComplexForm::operator+=(Form * anotherForm)
+// Algorithme
+// apres l'ajout, recherche l'extension
+// si elle n'est pas trouvee, la rajoute
 {
-	group.push_back(anotherForm->clone());
+	group.push_back(anotherForm->Clone());
 	if(group.back()->name.find("_"+name) == string::npos)
 	{
 		group.back()->name += ("_" + name);
