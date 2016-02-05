@@ -53,7 +53,7 @@ class Form
 		// pour copier par polymorphisme
 
 		string getName() const;
-		void correctSameName();
+		void CorrectSameName();
 
 //------------------------------------------------------- constructeurs/destructeur
 

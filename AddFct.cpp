@@ -12,11 +12,11 @@ GenericFct * AddFct::operator()(Project & project)
 	// --> a chaque modification, il faut recommencer le test, et sans goto, il faudrait
 	// separer le test et la modification pour en ressortir un booleen pour un while
 	begin :
-	for(int i(0); i< project.figure.size(); i++)
+	for(map<string, Form *>::iterator it = project.figure.begin(); it != project.figure.end(); it++)
 	{
-		if(project.figure[i]->getName().compare(toAdd.getName) == 0)
+		if(it->second->getName().compare(toAdd->getName()) == 0)
 		{
-			toAdd->correctSameName();
+			toAdd->CorrectSameName();
 			goto begin;
 		}
 	}

@@ -9,7 +9,7 @@ string Form::getName() const
 
 void Form::correctSameName()
 {
-	name += .copy
+	name += ".copy";
 }
 
 Form::Form(const string & argName) : name(argName)
